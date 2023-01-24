@@ -27,6 +27,7 @@ void newBlueprint(std::string name) {
     blueprint->setClientSize({ 250, 120 });
     blueprint->setPosition(420, 80);
     blueprint->setTitle(/*"Empty Blueprint"*/name);
+    blueprint->setWidgetName("BP");
     gui.add(blueprint);
 
     value->setPosition(75, 70);
@@ -48,7 +49,7 @@ void newBlueprint(std::string name) {
     linkFromButton->setText("<");
     linkFromButton->setSize(30, 30);
     blueprint->add(linkFromButton);
-    
+
     hide();
 }
 
@@ -65,16 +66,24 @@ bool RunGUI(tgui::GuiBase& gui)
     }
 }
 
-int getDirection(sf::Event& event) 
+int getDirection(sf::Event& event)
 {
     if (event.type == sf::Event::MouseWheelScrolled) {
-        if (event.mouseWheelScroll.delta > 0) 
+        if (event.mouseWheelScroll.delta > 0)
         {
-            return 1;
+            for (const tgui::Widget::Ptr& widget : gui.getWidgets())
+                if (widget->getWidgetType() == "ChildWindow") {
+                    std::cout << widget->getWidgetType();
+                    widget->setSize(10, 10);
+                }
         }
-        else if (event.mouseWheelScroll.delta < 0) 
+        else if (event.mouseWheelScroll.delta < 0)
         {
-            return -1;
+            for (const tgui::Widget::Ptr& widget : gui.getWidgets())
+                if (widget->getWidgetType() == "ChildWindow") {
+                    std::cout << widget->getWidgetType();
+                    widget->setSize(10, 10);
+                }
         }
     }
 }
@@ -125,7 +134,7 @@ int main()
         compile->setText("compile");
         gui.add(compile);
 
-        
+
     }
 
     while (window.isOpen())
@@ -177,7 +186,7 @@ int main()
         }
         getDirection(event);
 
-        window.clear(sf::Color(40,40,40));
+        window.clear(sf::Color(40, 40, 40));
         gui.draw();
         window.display();
     }
