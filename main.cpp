@@ -25,7 +25,7 @@ void newBlueprint(std::string name) {
     auto linkFromButton = tgui::Button::create();
 
     blueprint->setClientSize({ 250, 120 });
-    blueprint->setPosition(420, 80);
+    blueprint->setPosition(sf::Mouse::getPosition().x, sf::Mouse::getPosition().y);
     blueprint->setTitle(/*"Empty Blueprint"*/name);
     blueprint->setWidgetName("BP");
     gui.add(blueprint);
@@ -66,7 +66,7 @@ bool RunGUI(tgui::GuiBase& gui)
     }
 }
 
-int getDirection(sf::Event& event)
+/*int getDirection(sf::Event& event)
 {
     if (event.type == sf::Event::MouseWheelScrolled) {
         if (event.mouseWheelScroll.delta > 0)
@@ -74,19 +74,24 @@ int getDirection(sf::Event& event)
             for (const tgui::Widget::Ptr& widget : gui.getWidgets())
                 if (widget->getWidgetType() == "ChildWindow") {
                     std::cout << widget->getWidgetType();
-                    widget->setSize(10, 10);
+                    if (widget->getSize().x > 100 && widget->getSize().y > 100) {
+                        widget->setSize(widget->getSize().x - 1, widget->getSize().y - 1);
+                    }
+
                 }
+            return 1;
         }
         else if (event.mouseWheelScroll.delta < 0)
         {
             for (const tgui::Widget::Ptr& widget : gui.getWidgets())
                 if (widget->getWidgetType() == "ChildWindow") {
                     std::cout << widget->getWidgetType();
-                    widget->setSize(10, 10);
+                    widget->setSize(widget->getSize().x + 1, widget->getSize().y + 1);
                 }
+            return -1;
         }
     }
-}
+}*/
 
 
 int main()
@@ -121,6 +126,7 @@ int main()
         std::string color = data["color"];
         int checkBoxCount = data["amount_of_checkboxes"];
         int editBoxCount = data["amount_of_editboxes"];
+
         // create button and load in blueprint
         auto button = tgui::Button::create();
         button->setSize(250, 30);
@@ -133,8 +139,6 @@ int main()
         compile->setSize(250, 30);
         compile->setText("compile");
         gui.add(compile);
-
-
     }
 
     while (window.isOpen())
@@ -184,7 +188,7 @@ int main()
             }
             Sleep(5);
         }
-        getDirection(event);
+        //getDirection(event);
 
         window.clear(sf::Color(40, 40, 40));
         gui.draw();
