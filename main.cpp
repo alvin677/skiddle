@@ -11,6 +11,8 @@ sf::RenderWindow window{ {1920, 1080}, "Skiddle" };
 tgui::GuiSFML gui{ window };
 auto blueprintSearcher = tgui::ChildWindow::create();
 auto searchBar = tgui::EditBox::create();
+bool linking = false;
+int count = 0;
 
 void hide() {
     blueprintSearcher->setVisible(false);
@@ -43,14 +45,25 @@ void newBlueprint(std::string name) {
     linkToButton->setPosition(230, 45);
     linkToButton->setText(">");
     linkToButton->setSize(30, 30);
+    linkToButton->onPress([&] {
+        linking = true;
+    });
     blueprint->add(linkToButton);
 
     linkFromButton->setPosition(-10, 45);
     linkFromButton->setText("<");
     linkFromButton->setSize(30, 30);
+    linkFromButton->onPress([&] {
+        if (linking == true) {
+            linkFromButton->setText("0"/*std::to_string(count)*/);
+            //linkFromButton->setText(std::to_string(count));
+            linking = false;
+        }
+    });
     blueprint->add(linkFromButton);
 
     hide();
+    count += 1;
 }
 
 bool RunGUI(tgui::GuiBase& gui)
