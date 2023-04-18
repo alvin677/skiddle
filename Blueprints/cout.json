@@ -1,0 +1,14 @@
+{
+  "name": "(C++) Console Output",
+  "color": "#00FF00",
+  "sizeX": "50%",
+  "sizeY": "50%",
+
+  "amount_of_checkboxes": 0,
+  "amount_of_editboxes": 1,
+
+  "top_code": "#include <iostream>",
+  "code": "std::cout<<{v};",
+
+  "priority": 0
+}

@@ -1,0 +1,14 @@
+{
+  "name": "(C++) End",
+  "color": "#FF0000",
+  "sizeX": "50%",
+  "sizeY": "50%",
+
+  "amount_of_checkboxes": 0,
+  "amount_of_editboxes": 0,
+
+  "top_code": "",
+  "code": "}",
+
+  "priority": 0
+}
